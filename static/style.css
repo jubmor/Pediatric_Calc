@@ -161,6 +161,24 @@ header .subtitle {
     border-color: #667eea;
 }
 
+.formula-text {
+    font-size: 0.95em;
+    color: #475569;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.formula-black {
+    color: #111;
+}
+
+.item-formula {
+    display: block;
+    font-size: 0.85em;
+    color: #475569;
+    margin-top: 4px;
+}
+
 .result-box h3 {
     font-size: 1.4em;
     margin-bottom: 15px;
@@ -239,6 +257,55 @@ header .subtitle {
 .section-e h3 {
     color: #ea580c;
     border-bottom-color: #ea580c;
+}
+
+.section-f {
+    border-left: 5px solid #0f766e;
+}
+
+.section-f h3 {
+    color: #0f766e;
+    border-bottom-color: #0f766e;
+}
+
+.section-g {
+    border-left: 5px solid #0f766e;
+}
+
+.section-g h3 {
+    color: #0f766e;
+    border-bottom-color: #0f766e;
+}
+
+.vitals-table-wrap {
+    overflow-x: auto;
+    margin-top: 15px;
+}
+
+.vitals-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95em;
+}
+
+.vitals-table th,
+.vitals-table td {
+    border: 1px solid #cbd5e1;
+    padding: 12px 10px;
+    text-align: center;
+}
+
+.vitals-table thead {
+    background-color: #e2e8f0;
+}
+
+.vitals-table th {
+    color: #0f172a;
+    font-weight: 700;
+}
+
+.vitals-table tbody tr:nth-child(odd) {
+    background-color: #f8fafc;
 }
 
 /* RESULT GRID */

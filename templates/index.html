@@ -41,173 +41,304 @@
                 <!-- Weight Display -->
                 <div class="result-box weight-box">
                     <h3>Calculated Weight</h3>
+                    <p class="formula-text formula-black">Weight estimate formulas: 1-12 months = (0.5 × age_months) + 4; 1-5 years = (2 × age_years) + 8; 6-12 years = (3 × age_years) + 7.</p>
                     <div class="result-value" id="result_weight">-- kg</div>
                 </div>
 
-                <!-- A - AIRWAY -->
-                <div class="result-box section-a">
-                    <h3>A - Airway</h3>
-                    <div class="result-grid">
-                        <div class="result-item">
-                            <span class="label">ET Tube Size (uncuffed):</span>
-                            <span class="value" id="result_et_tube_size">-- mm</span>
-                        </div>
-                        <div class="result-item">
-                            <span class="label">ET Tube Size (cuffed):</span>
-                            <span class="value" id="result_et_tube_cuff">-- mm</span>
-                        </div>
-                        <div class="result-item">
-                            <span class="label">ET Tube Length (oral):</span>
-                            <span class="value" id="result_et_tube_length">-- cm</span>
-                        </div>
-                        <div class="result-item">
-                            <span class="label">Chest Tube Size:</span>
-                            <span class="value" id="result_chest_tube">-- Fr</span>
-                        </div>
-                        <div class="result-item">
-                            <span class="label">Supraglottic Device:</span>
-                            <span class="value" id="result_supraglottic">-- Size</span>
-                        </div>
-                        <div class="result-item">
-                            <span class="label">Ventilated Tidal Volume:</span>
-                            <span class="value" id="result_tidal_volume">-- ml</span>
-                        </div>
+                <!-- VITAL SIGNS -->
+                <div class="result-box section-g" id="vitals-section">
+                    <h3>Vital Signs</h3>
+                    <div class="vitals-table-wrap">
+                        <table class="vitals-table">
+                            <thead>
+                                <tr>
+                                    <th>Respiratory Rate<br>(Breaths / min)</th>
+                                    <th>Pulse Rate<br>(Beats / min)</th>
+                                    <th>Systolic Blood Pressure<br>(mmHg)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-age-group="<1">
+                                    <td>30 - 40</td>
+                                    <td>100 - 160</td>
+                                    <td>70 - 90</td>
+                                </tr>
+                                <tr data-age-group="2-5">
+                                    <td>25 - 30</td>
+                                    <td>95 - 140</td>
+                                    <td>80 - 100</td>
+                                </tr>
+                                <tr data-age-group="6-12">
+                                    <td>15 - 25</td>
+                                    <td>80 - 120</td>
+                                    <td>90 - 110</td>
+                                </tr>
+                                <tr data-age-group=">12">
+                                    <td>12 - 20</td>
+                                    <td>60 - 100</td>
+                                    <td>100 - 120</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
                 <!-- ANALGESIA -->
-                <div class="result-box section-b">
+                <div class="result-box section-c">
                     <h3>Analgesia</h3>
                     <h4>Nasal Route</h4>
                     <div class="result-grid">
                         <div class="result-item">
-                            <span class="label">Fentanyl (nasal):</span>
+                            <div>
+                                <span class="label">Fentanyl (nasal):</span>
+                                <span class="item-formula">Formula: 2 mcg/kg</span>
+                            </div>
                             <span class="value" id="result_fentanyl_nasal">-- mcg</span>
                         </div>
                         <div class="result-item">
-                            <span class="label">Diamorphine (nasal):</span>
+                            <div>
+                                <span class="label">Diamorphine (nasal):</span>
+                                <span class="item-formula">Formula: 0.1 mg/kg</span>
+                            </div>
                             <span class="value" id="result_diamorphine_nasal">-- mg</span>
                         </div>
                         <div class="result-item">
-                            <span class="label">Ketamine (nasal):</span>
+                            <div>
+                                <span class="label">Ketamine (nasal):</span>
+                                <span class="item-formula">Formula: 3 mg/kg</span>
+                            </div>
                             <span class="value" id="result_ketamine_nasal">-- mg</span>
                         </div>
                     </div>
                     <h4>Intramuscular</h4>
                     <div class="result-grid">
                         <div class="result-item">
-                            <span class="label">Ketamine (IM):</span>
+                            <div>
+                                <span class="label">Ketamine (IM):</span>
+                                <span class="item-formula">Formula: 2 mg/kg</span>
+                            </div>
                             <span class="value" id="result_ketamine_im">-- mg</span>
                         </div>
                     </div>
                     <h4>Intravenous</h4>
                     <div class="result-grid">
                         <div class="result-item">
-                            <span class="label">Paracetamol (IV):</span>
+                            <div>
+                                <span class="label">Paracetamol (IV):</span>
+                                <span class="item-formula">Formula: 15 mg/kg (max 1000 mg)</span>
+                            </div>
                             <span class="value" id="result_paracetamol_iv">-- mg</span>
                         </div>
                         <div class="result-item">
-                            <span class="label">Morphine (IV):</span>
+                            <div>
+                                <span class="label">Morphine (IV):</span>
+                                <span class="item-formula">Formula: 0.03-0.1 mg/kg</span>
+                            </div>
                             <span class="value" id="result_morphine_iv">-- mg</span>
                         </div>
                         <div class="result-item">
-                            <span class="label">Fentanyl (IV):</span>
+                            <div>
+                                <span class="label">Fentanyl (IV):</span>
+                                <span class="item-formula">Formula: 0.5-1 mcg/kg</span>
+                            </div>
                             <span class="value" id="result_fentanyl_iv">-- mcg</span>
                         </div>
                         <div class="result-item">
-                            <span class="label">Ketamine (IV):</span>
+                            <div>
+                                <span class="label">Ketamine (IV):</span>
+                                <span class="item-formula">Formula: 0.2-0.5 mg/kg</span>
+                            </div>
                             <span class="value" id="result_ketamine_iv">-- mg</span>
                         </div>
                     </div>
                 </div>
 
+                <!-- A - AIRWAY -->
+                <div class="result-box section-a">
+                    <h3>A - Airway</h3>
+                    <p class="formula-text formula-black">ET = Endotracheal tube</p>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <div>
+                                <span class="label">ET Tube Size (uncuffed):</span>
+                                <span class="item-formula">Formula: (age/4) + 4</span>
+                            </div>
+                            <span class="value" id="result_et_tube_size">-- mm</span>
+                        </div>
+                        <div class="result-item">
+                            <div>
+                                <span class="label">ET Tube Size (cuffed):</span>
+                                <span class="item-formula">Formula: (age/4) + 3.5</span>
+                            </div>
+                            <span class="value" id="result_et_tube_cuff">-- mm</span>
+                        </div>
+                        <div class="result-item">
+                            <div>
+                                <span class="label">ET Tube Length (oral):</span>
+                                <span class="item-formula">Formula: (age/2) + 12</span>
+                            </div>
+                            <span class="value" id="result_et_tube_length">-- cm</span>
+                        </div>
+                        <div class="result-item">
+                            <div>
+                                <span class="label">Supraglottic Device:</span>
+                                <span class="item-formula">Selection based on weight ranges</span>
+                            </div>
+                            <span class="value" id="result_supraglottic">-- Size</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- B - BREATHING -->
+                <div class="result-box section-b">
+                    <h3>B - Breathing</h3>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <div>
+                                <span class="label">Chest Tube Size:</span>
+                                <span class="item-formula">Formula: ET tube size × 4</span>
+                            </div>
+                            <span class="value" id="result_chest_tube">-- Fr</span>
+                        </div>
+                        <div class="result-item">
+                            <div>
+                                <span class="label">Ventilated Tidal Volume:</span>
+                                <span class="item-formula">Formula: 6 ml × weight (kg)</span>
+                            </div>
+                            <span class="value" id="result_tidal_volume">-- ml</span>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- C - CIRCULATION -->
-                <div class="result-box section-c">
+                <div class="result-box section-d">
                     <h3>C - Circulation</h3>
                     <h4>Fluids</h4>
                     <div class="result-grid">
                         <div class="result-item">
-                            <span class="label">Crystalloid Bolus:</span>
+                            <div>
+                                <span class="label">Crystalloid Bolus:</span>
+                                <span class="item-formula">Formula: 10 ml/kg (max 500 ml)</span>
+                            </div>
                             <span class="value" id="result_crystalloid">-- ml</span>
                         </div>
                     </div>
                     <h4>Transfusion</h4>
                     <div class="result-grid">
                         <div class="result-item">
-                            <span class="label">Blood (1:1 ratio):</span>
+                            <div>
+                                <span class="label">Blood (1:1 ratio):</span>
+                                <span class="item-formula">Formula: 5-10 ml/kg</span>
+                            </div>
                             <span class="value" id="result_blood">-- ml</span>
                         </div>
                         <div class="result-item">
-                            <span class="label">FFP:</span>
+                            <div>
+                                <span class="label">FFP:</span>
+                                <span class="item-formula">Formula: 5-10 ml/kg</span>
+                            </div>
                             <span class="value" id="result_ffp">-- ml</span>
                         </div>
                         <div class="result-item">
-                            <span class="label">Platelets (apheresis):</span>
+                            <div>
+                                <span class="label">Platelets (apheresis):</span>
+                                <span class="item-formula">Formula: 5-10 ml/kg</span>
+                            </div>
                             <span class="value" id="result_platelets">-- ml</span>
                         </div>
                     </div>
                     <h4>Medications</h4>
                     <div class="result-grid">
                         <div class="result-item">
-                            <span class="label">Tranexamic Acid (bolus):</span>
+                            <div>
+                                <span class="label">Tranexamic Acid (bolus):</span>
+                                <span class="item-formula">Formula: 15 mg/kg (max 1000 mg)</span>
+                            </div>
                             <span class="value" id="result_txa_bolus">-- mg</span>
                         </div>
                         <div class="result-item">
-                            <span class="label">Tranexamic Acid (infusion):</span>
+                            <div>
+                                <span class="label">Tranexamic Acid (infusion):</span>
+                                <span class="item-formula">Formula: 2 mg/kg/hr (max 125 mg/hr)</span>
+                            </div>
                             <span class="value" id="result_txa_infusion">-- mg/hr</span>
                         </div>
                         <div class="result-item">
-                            <span class="label">Calcium Chloride 10%:</span>
+                            <div>
+                                <span class="label">Calcium Chloride 10%:</span>
+                                <span class="item-formula">Formula: 0.2 ml/kg (max 10 ml)</span>
+                            </div>
                             <span class="value" id="result_calcium">-- ml</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- D - DISABILITY -->
-                <div class="result-box section-d">
+                <div class="result-box section-e">
                     <h3>D - Disability</h3>
                     <h4>Osmotherapy</h4>
                     <div class="result-grid">
                         <div class="result-item">
-                            <span class="label">Hypertonic Saline 3%:</span>
+                            <div>
+                                <span class="label">Hypertonic Saline 3%:</span>
+                                <span class="item-formula">Formula: 3-5 ml/kg (or 250 ml if > 50 kg)</span>
+                            </div>
                             <span class="value" id="result_hypertonic_saline">-- ml</span>
                         </div>
                         <div class="result-item">
-                            <span class="label">Mannitol 20%:</span>
+                            <div>
+                                <span class="label">Mannitol 20%:</span>
+                                <span class="item-formula">Formula: 1.25-2.5 ml/kg (250-500 mg/kg)</span>
+                            </div>
                             <span class="value" id="result_mannitol">-- mg</span>
                         </div>
                     </div>
                     <h4>Glucose</h4>
                     <div class="result-grid">
                         <div class="result-item">
-                            <span class="label">Dextrose 10%:</span>
+                            <div>
+                                <span class="label">Dextrose 10%:</span>
+                                <span class="item-formula">Formula: 2 ml/kg</span>
+                            </div>
                             <span class="value" id="result_dextrose">-- ml</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- E - EMERGENCY DRUGS & ENERGY -->
-                <div class="result-box section-e">
+                <div class="result-box section-f">
                     <h3>E - Emergency Drugs & Energy</h3>
                     <h4>Emergency Drugs</h4>
                     <div class="result-grid">
                         <div class="result-item">
-                            <span class="label">Adrenaline:</span>
+                            <div>
+                                <span class="label">Adrenaline:</span>
+                                <span class="item-formula">Formula: 10 mcg/kg (max 1000 mcg)</span>
+                            </div>
                             <span class="value" id="result_adrenaline">-- mcg</span>
                         </div>
                         <div class="result-item">
-                            <span class="label">Atropine:</span>
+                            <div>
+                                <span class="label">Atropine:</span>
+                                <span class="item-formula">Formula: 20 mcg/kg (max 600 mcg)</span>
+                            </div>
                             <span class="value" id="result_atropine">-- mcg</span>
                         </div>
                         <div class="result-item">
-                            <span class="label">Lorazepam:</span>
+                            <div>
+                                <span class="label">Lorazepam:</span>
+                                <span class="item-formula">Formula: 0.1 mg/kg (max 4 mg)</span>
+                            </div>
                             <span class="value" id="result_lorazepam">-- mg</span>
                         </div>
                     </div>
                     <h4>Energy</h4>
                     <div class="result-grid">
                         <div class="result-item">
-                            <span class="label">Defibrillation:</span>
+                            <div>
+                                <span class="label">Defibrillation:</span>
+                                <span class="item-formula">Formula: 4 J/kg (150 J if ≥ 50 kg)</span>
+                            </div>
                             <span class="value" id="result_defib">-- J</span>
                         </div>
                     </div>
@@ -220,16 +351,6 @@
             <section class="info-section">
                 <h2>About This Calculator</h2>
                 <p>This calculator implements the <strong>ETC Paediatric Major Trauma Calculations</strong> reference guide.</p>
-                <h3>Key References:</h3>
-                <ul>
-                    <li><strong>Weight estimation:</strong> Uses standard formulas based on age</li>
-                    <li><strong>Airway:</strong> ET tube sizing, supraglottic devices, chest tube insertion</li>
-                    <li><strong>Analgesia:</strong> Multiple routes (nasal, IM, IV) for pain management</li>
-                    <li><strong>Circulation:</strong> Fluid resuscitation and blood products</li>
-                    <li><strong>Disability:</strong> CNS management and glucose correction</li>
-                    <li><strong>Emergency Drugs:</strong> Critical medications for resuscitation</li>
-                    <li><strong>Energy:</strong> Defibrillation dose calculation</li>
-                </ul>
                 <p class="disclaimer"><strong>⚠️ Disclaimer:</strong> This is a reference tool only. Always follow your local protocols and clinical guidelines. Verify all calculations with senior clinicians in emergency situations.</p>
             </section>
         </div>

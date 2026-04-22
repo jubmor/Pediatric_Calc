@@ -54,7 +54,7 @@ async function performCalculation() {
         }
 
         const results = await response.json();
-        displayResults(results);
+        displayResults(results, ageYears, ageMonths);
 
         // Scroll to results
         resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -67,7 +67,7 @@ async function performCalculation() {
     }
 }
 
-function displayResults(data) {
+function displayResults(data, ageYears, ageMonths) {
     // Display weight
     document.getElementById('result_weight').textContent = data.weight_kg + ' kg';
 
@@ -109,11 +109,50 @@ function displayResults(data) {
     document.getElementById('result_lorazepam').textContent = data.emergency_drugs.lorazepam + ' mg';
     document.getElementById('result_defib').textContent = data.energy.defibrillation + ' J';
 
+    // Show vital signs row based on age
+    updateVitalSigns(ageYears, ageMonths);
+
     // Show results section
     resultsSection.style.display = 'block';
 
     // Remove any error messages
     removeError();
+}
+
+function updateVitalSigns(ageYears, ageMonths) {
+    const vitalRows = document.querySelectorAll('#vitals-section [data-age-group]');
+    const vitalSection = document.getElementById('vitals-section');
+    let ageGroup = null;
+
+    if (ageMonths !== null && !isNaN(ageMonths)) {
+        if (ageMonths < 12) {
+            ageGroup = '<1';
+        } else {
+            ageGroup = '2-5';
+        }
+    } else if (ageYears !== null && !isNaN(ageYears)) {
+        if (ageYears < 2) {
+            ageGroup = '<1';
+        } else if (ageYears <= 5) {
+            ageGroup = '2-5';
+        } else if (ageYears <= 12) {
+            ageGroup = '6-12';
+        } else {
+            ageGroup = '>12';
+        }
+    }
+
+    if (ageGroup) {
+        vitalSection.style.display = 'block';
+        vitalRows.forEach(row => {
+            row.style.display = row.dataset.ageGroup === ageGroup ? '' : 'none';
+        });
+    } else {
+        vitalSection.style.display = 'none';
+        vitalRows.forEach(row => {
+            row.style.display = 'none';
+        });
+    }
 }
 
 function resetCalculator() {
