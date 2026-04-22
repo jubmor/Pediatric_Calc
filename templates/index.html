@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paediatric Emergency Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚑 Paediatric Major Trauma Calculator</h1>
+            <p class="subtitle">ETC Reference Calculations</p>
+        </header>
+
+        <div class="main-content">
+            <!-- INPUT SECTION -->
+            <section class="input-section">
+                <h2>Patient Information</h2>
+                <div class="input-group">
+                    <div class="input-field">
+                        <label for="age_years">Age (years):</label>
+                        <input type="number" id="age_years" min="0" max="18" step="0.1" placeholder="e.g., 5">
+                    </div>
+                    <div class="input-field">
+                        <label for="age_months">Age (months):</label>
+                        <input type="number" id="age_months" min="0" max="12" step="0.1" placeholder="e.g., 6 (for <1 year)">
+                    </div>
+                    <div class="input-field">
+                        <label for="weight_kg">Weight (kg):</label>
+                        <input type="number" id="weight_kg" min="0" step="0.1" placeholder="optional - auto-calculated">
+                    </div>
+                </div>
+                <button id="calculate-btn" class="btn btn-primary">Calculate</button>
+                <p class="help-text">Enter age (years OR months) OR weight to get calculations</p>
+            </section>
+
+            <!-- RESULTS SECTION -->
+            <section id="results-section" class="results-section" style="display: none;">
+                
+                <!-- Weight Display -->
+                <div class="result-box weight-box">
+                    <h3>Calculated Weight</h3>
+                    <div class="result-value" id="result_weight">-- kg</div>
+                </div>
+
+                <!-- A - AIRWAY -->
+                <div class="result-box section-a">
+                    <h3>A - Airway</h3>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <span class="label">ET Tube Size (uncuffed):</span>
+                            <span class="value" id="result_et_tube_size">-- mm</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">ET Tube Size (cuffed):</span>
+                            <span class="value" id="result_et_tube_cuff">-- mm</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">ET Tube Length (oral):</span>
+                            <span class="value" id="result_et_tube_length">-- cm</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Chest Tube Size:</span>
+                            <span class="value" id="result_chest_tube">-- Fr</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Supraglottic Device:</span>
+                            <span class="value" id="result_supraglottic">-- Size</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Ventilated Tidal Volume:</span>
+                            <span class="value" id="result_tidal_volume">-- ml</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ANALGESIA -->
+                <div class="result-box section-b">
+                    <h3>Analgesia</h3>
+                    <h4>Nasal Route</h4>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <span class="label">Fentanyl (nasal):</span>
+                            <span class="value" id="result_fentanyl_nasal">-- mcg</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Diamorphine (nasal):</span>
+                            <span class="value" id="result_diamorphine_nasal">-- mg</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Ketamine (nasal):</span>
+                            <span class="value" id="result_ketamine_nasal">-- mg</span>
+                        </div>
+                    </div>
+                    <h4>Intramuscular</h4>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <span class="label">Ketamine (IM):</span>
+                            <span class="value" id="result_ketamine_im">-- mg</span>
+                        </div>
+                    </div>
+                    <h4>Intravenous</h4>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <span class="label">Paracetamol (IV):</span>
+                            <span class="value" id="result_paracetamol_iv">-- mg</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Morphine (IV):</span>
+                            <span class="value" id="result_morphine_iv">-- mg</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Fentanyl (IV):</span>
+                            <span class="value" id="result_fentanyl_iv">-- mcg</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Ketamine (IV):</span>
+                            <span class="value" id="result_ketamine_iv">-- mg</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- C - CIRCULATION -->
+                <div class="result-box section-c">
+                    <h3>C - Circulation</h3>
+                    <h4>Fluids</h4>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <span class="label">Crystalloid Bolus:</span>
+                            <span class="value" id="result_crystalloid">-- ml</span>
+                        </div>
+                    </div>
+                    <h4>Transfusion</h4>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <span class="label">Blood (1:1 ratio):</span>
+                            <span class="value" id="result_blood">-- ml</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">FFP:</span>
+                            <span class="value" id="result_ffp">-- ml</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Platelets (apheresis):</span>
+                            <span class="value" id="result_platelets">-- ml</span>
+                        </div>
+                    </div>
+                    <h4>Medications</h4>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <span class="label">Tranexamic Acid (bolus):</span>
+                            <span class="value" id="result_txa_bolus">-- mg</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Tranexamic Acid (infusion):</span>
+                            <span class="value" id="result_txa_infusion">-- mg/hr</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Calcium Chloride 10%:</span>
+                            <span class="value" id="result_calcium">-- ml</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- D - DISABILITY -->
+                <div class="result-box section-d">
+                    <h3>D - Disability</h3>
+                    <h4>Osmotherapy</h4>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <span class="label">Hypertonic Saline 3%:</span>
+                            <span class="value" id="result_hypertonic_saline">-- ml</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Mannitol 20%:</span>
+                            <span class="value" id="result_mannitol">-- mg</span>
+                        </div>
+                    </div>
+                    <h4>Glucose</h4>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <span class="label">Dextrose 10%:</span>
+                            <span class="value" id="result_dextrose">-- ml</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- E - EMERGENCY DRUGS & ENERGY -->
+                <div class="result-box section-e">
+                    <h3>E - Emergency Drugs & Energy</h3>
+                    <h4>Emergency Drugs</h4>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <span class="label">Adrenaline:</span>
+                            <span class="value" id="result_adrenaline">-- mcg</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Atropine:</span>
+                            <span class="value" id="result_atropine">-- mcg</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Lorazepam:</span>
+                            <span class="value" id="result_lorazepam">-- mg</span>
+                        </div>
+                    </div>
+                    <h4>Energy</h4>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <span class="label">Defibrillation:</span>
+                            <span class="value" id="result_defib">-- J</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="reset-btn" class="btn btn-secondary">New Calculation</button>
+            </section>
+
+            <!-- INFO SECTION -->
+            <section class="info-section">
+                <h2>About This Calculator</h2>
+                <p>This calculator implements the <strong>ETC Paediatric Major Trauma Calculations</strong> reference guide.</p>
+                <h3>Key References:</h3>
+                <ul>
+                    <li><strong>Weight estimation:</strong> Uses standard formulas based on age</li>
+                    <li><strong>Airway:</strong> ET tube sizing, supraglottic devices, chest tube insertion</li>
+                    <li><strong>Analgesia:</strong> Multiple routes (nasal, IM, IV) for pain management</li>
+                    <li><strong>Circulation:</strong> Fluid resuscitation and blood products</li>
+                    <li><strong>Disability:</strong> CNS management and glucose correction</li>
+                    <li><strong>Emergency Drugs:</strong> Critical medications for resuscitation</li>
+                    <li><strong>Energy:</strong> Defibrillation dose calculation</li>
+                </ul>
+                <p class="disclaimer"><strong>⚠️ Disclaimer:</strong> This is a reference tool only. Always follow your local protocols and clinical guidelines. Verify all calculations with senior clinicians in emergency situations.</p>
+            </section>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
