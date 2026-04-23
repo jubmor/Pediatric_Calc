@@ -10,16 +10,16 @@ class PedsCalculator:
     
     @staticmethod
     def calculate_weight(age_years=None, age_months=None):
-        """Calculate weight (kg) from age"""
+        """Calculate weight (kg) from age using current pediatric formulas."""
         if age_months is not None and age_months <= 12:
-            # 1-12 months = (0.5 x age in months) + 4
+            # 1-12 months: Updated APLS infant formula = (age in months ÷ 2) + 4
             return (0.5 * age_months) + 4
         elif age_years is not None:
             if age_years <= 5:
-                # 1-5 years = (2 x age in years) + 8
+                # 1-5 years: Best Guess formula = (2 × age in years) + 8
                 return (2 * age_years) + 8
             elif age_years <= 12:
-                # 6-12 years = (3 x age in years) + 7
+                # 6-12 years: Luscombe formula = (3 × age in years) + 7
                 return (3 * age_years) + 7
         return None
     
@@ -64,6 +64,59 @@ class PedsCalculator:
     def ventilated_tidal_volume(weight_kg):
         """Ventilated tidal volume: 6 ml/kg"""
         return 6 * weight_kg
+    
+    # ==================== RSI ====================
+    
+    @staticmethod
+    def ketamine_rsi_iv_min(weight_kg):
+        """Ketamine RSI IV: 1 mg/kg"""
+        return 1 * weight_kg
+    
+    @staticmethod
+    def ketamine_rsi_iv_max(weight_kg):
+        """Ketamine RSI IV: 2 mg/kg"""
+        return 2 * weight_kg
+    
+    @staticmethod
+    def ketamine_rsi_im_min(weight_kg):
+        """Ketamine RSI IM: 4 mg/kg"""
+        return 4 * weight_kg
+    
+    @staticmethod
+    def ketamine_rsi_im_max(weight_kg):
+        """Ketamine RSI IM: 5 mg/kg"""
+        return 5 * weight_kg
+    
+    @staticmethod
+    def etomidate_rsi_iv_min(weight_kg):
+        """Etomidate RSI IV: 0.2 mg/kg"""
+        return 0.2 * weight_kg
+    
+    @staticmethod
+    def etomidate_rsi_iv_max(weight_kg):
+        """Etomidate RSI IV: 0.3 mg/kg (max 20 mg)"""
+        dose = 0.3 * weight_kg
+        return min(dose, 20)
+    
+    @staticmethod
+    def propofol_rsi_iv_min(weight_kg):
+        """Propofol RSI IV: 2 mg/kg"""
+        return 2 * weight_kg
+    
+    @staticmethod
+    def propofol_rsi_iv_max(weight_kg):
+        """Propofol RSI IV: 3 mg/kg"""
+        return 3 * weight_kg
+    
+    @staticmethod
+    def rocuronium_rsi(weight_kg):
+        """Rocuronium RSI: 1.2 mg/kg"""
+        return 1.2 * weight_kg
+    
+    @staticmethod
+    def sugammadex_rsi(weight_kg):
+        """Sugammadex RSI: 16 mg/kg"""
+        return 16 * weight_kg
     
     # ==================== ANALGESIA ====================
     
@@ -269,6 +322,18 @@ def calculate():
                 'chest_tube_size': round(PedsCalculator.chest_tube_size(age_years or 0), 1),
                 'supraglottic_device': PedsCalculator.supraglottic_device_size(weight_kg),
                 'ventilated_tidal_volume': round(PedsCalculator.ventilated_tidal_volume(weight_kg), 1),
+                'rsi': {
+                    'ketamine_iv_min': round(PedsCalculator.ketamine_rsi_iv_min(weight_kg), 2),
+                    'ketamine_iv_max': round(PedsCalculator.ketamine_rsi_iv_max(weight_kg), 2),
+                    'ketamine_im_min': round(PedsCalculator.ketamine_rsi_im_min(weight_kg), 2),
+                    'ketamine_im_max': round(PedsCalculator.ketamine_rsi_im_max(weight_kg), 2),
+                    'etomidate_iv_min': round(PedsCalculator.etomidate_rsi_iv_min(weight_kg), 2),
+                    'etomidate_iv_max': round(PedsCalculator.etomidate_rsi_iv_max(weight_kg), 2),
+                    'propofol_iv_min': round(PedsCalculator.propofol_rsi_iv_min(weight_kg), 2),
+                    'propofol_iv_max': round(PedsCalculator.propofol_rsi_iv_max(weight_kg), 2),
+                    'rocuronium': round(PedsCalculator.rocuronium_rsi(weight_kg), 2),
+                    'sugammadex': round(PedsCalculator.sugammadex_rsi(weight_kg), 2),
+                },
             },
             'analgesia': {
                 'fentanyl_nasal': round(PedsCalculator.fentanyl_nasal(weight_kg), 2),

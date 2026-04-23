@@ -79,6 +79,12 @@ function displayResults(data, ageYears, ageMonths) {
     document.getElementById('result_supraglottic').textContent = 'Size ' + data.airway.supraglottic_device;
     document.getElementById('result_tidal_volume').textContent = data.airway.ventilated_tidal_volume + ' ml';
 
+    // RSI
+    document.getElementById('result_ketamine_rsi_iv').textContent = data.airway.rsi.ketamine_iv_min + '-' + data.airway.rsi.ketamine_iv_max + ' mg';
+    document.getElementById('result_ketamine_rsi_im').textContent = data.airway.rsi.ketamine_im_min + '-' + data.airway.rsi.ketamine_im_max + ' mg';
+    document.getElementById('result_etomidate_rsi_iv').textContent = data.airway.rsi.etomidate_iv_min + '-' + data.airway.rsi.etomidate_iv_max + ' mg';
+    document.getElementById('result_propofol_rsi_iv').textContent = data.airway.rsi.propofol_iv_min + '-' + data.airway.rsi.propofol_iv_max + ' mg';
+
     // Analgesia Section
     document.getElementById('result_fentanyl_nasal').textContent = data.analgesia.fentanyl_nasal + ' mcg';
     document.getElementById('result_diamorphine_nasal').textContent = data.analgesia.diamorphine_nasal + ' mg';
@@ -124,22 +130,21 @@ function updateVitalSigns(ageYears, ageMonths) {
     const vitalSection = document.getElementById('vitals-section');
     let ageGroup = null;
 
-    if (ageMonths !== null && !isNaN(ageMonths)) {
-        if (ageMonths < 12) {
-            ageGroup = '<1';
-        } else {
-            ageGroup = '2-5';
-        }
-    } else if (ageYears !== null && !isNaN(ageYears)) {
-        if (ageYears < 2) {
-            ageGroup = '<1';
-        } else if (ageYears <= 5) {
-            ageGroup = '2-5';
-        } else if (ageYears <= 12) {
-            ageGroup = '6-12';
-        } else {
-            ageGroup = '>12';
-        }
+    let totalYears = ageYears || 0;
+    if (ageMonths) {
+        totalYears += ageMonths / 12;
+    }
+
+    if (totalYears < 1) {
+        ageGroup = '1month-1year';
+    } else if (totalYears < 2) {
+        ageGroup = '1-2';
+    } else if (totalYears < 5) {
+        ageGroup = '2-5';
+    } else if (totalYears < 10) {
+        ageGroup = '5-10';
+    } else {
+        ageGroup = '10+';
     }
 
     if (ageGroup) {

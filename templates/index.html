@@ -41,7 +41,9 @@
                 <!-- Weight Display -->
                 <div class="result-box weight-box">
                     <h3>Calculated Weight</h3>
-                    <p class="formula-text formula-black">Weight estimate formulas: 1-12 months = (0.5 × age_months) + 4; 1-5 years = (2 × age_years) + 8; 6-12 years = (3 × age_years) + 7.</p>
+                    <p class="formula-text formula-black">1–12 months (Updated APLS infant formula) = (age in months ÷ 2) + 4<br>
+                    1–5 years (Best Guess formula) = (2 × age in years) + 8<br>
+                    6–12 years (Luscombe formula) = (3 × age in years) + 7</p>
                     <div class="result-value" id="result_weight">-- kg</div>
                 </div>
 
@@ -53,30 +55,41 @@
                             <thead>
                                 <tr>
                                     <th>Respiratory Rate<br>(Breaths / min)</th>
-                                    <th>Pulse Rate<br>(Beats / min)</th>
-                                    <th>Systolic Blood Pressure<br>(mmHg)</th>
+                                    <th>Heart Rate<br>(Beats / min)</th>
+                                    <th>Systolic Blood Pressure<br>(mmHg)<br>p5-p50</th>
+                                    <th>Mean Blood Pressure<br>(mmHg)<br>p5-p50</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr data-age-group="<1">
-                                    <td>30 - 40</td>
-                                    <td>100 - 160</td>
-                                    <td>70 - 90</td>
+                                <tr data-age-group="1month-1year">
+                                    <td>25 – 60</td>
+                                    <td>110 – 180</td>
+                                    <td>50 – 75</td>
+                                    <td>40 – 55</td>
+                                </tr>
+                                <tr data-age-group="1-2">
+                                    <td>20 – 50</td>
+                                    <td>100 – 170</td>
+                                    <td>70 – 95</td>
+                                    <td>50 – 70</td>
                                 </tr>
                                 <tr data-age-group="2-5">
-                                    <td>25 - 30</td>
-                                    <td>95 - 140</td>
-                                    <td>80 - 100</td>
+                                    <td>18 – 40</td>
+                                    <td>90 – 160</td>
+                                    <td>70 – 95</td>
+                                    <td>50 – 70</td>
                                 </tr>
-                                <tr data-age-group="6-12">
-                                    <td>15 - 25</td>
-                                    <td>80 - 120</td>
-                                    <td>90 - 110</td>
+                                <tr data-age-group="5-10">
+                                    <td>17 – 30</td>
+                                    <td>70 – 140</td>
+                                    <td>75 – 100</td>
+                                    <td>55 – 75</td>
                                 </tr>
-                                <tr data-age-group=">12">
-                                    <td>12 - 20</td>
-                                    <td>60 - 100</td>
-                                    <td>100 - 120</td>
+                                <tr data-age-group="10+">
+                                    <td>14 – 25</td>
+                                    <td>60 – 120</td>
+                                    <td>80 – 110</td>
+                                    <td>55 – 75</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -160,17 +173,17 @@
                     <div class="result-grid">
                         <div class="result-item">
                             <div>
-                                <span class="label">ET Tube Size (uncuffed):</span>
-                                <span class="item-formula">Formula: (age/4) + 4</span>
-                            </div>
-                            <span class="value" id="result_et_tube_size">-- mm</span>
-                        </div>
-                        <div class="result-item">
-                            <div>
                                 <span class="label">ET Tube Size (cuffed):</span>
                                 <span class="item-formula">Formula: (age/4) + 3.5</span>
                             </div>
                             <span class="value" id="result_et_tube_cuff">-- mm</span>
+                        </div>
+                        <div class="result-item">
+                            <div>
+                                <span class="label">ET Tube Size (uncuffed):</span>
+                                <span class="item-formula">Formula: (age/4) + 4</span>
+                            </div>
+                            <span class="value" id="result_et_tube_size">-- mm</span>
                         </div>
                         <div class="result-item">
                             <div>
@@ -185,6 +198,38 @@
                                 <span class="item-formula">Selection based on weight ranges</span>
                             </div>
                             <span class="value" id="result_supraglottic">-- Size</span>
+                        </div>
+                    </div>
+                    <h4>Rapid sequence induction (RSI)</h4>
+                    <h5>Induction Agents:</h5>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <div>
+                                <span class="label">Ketamine (IV):</span>
+                                <span class="item-formula">Formula: 1-2 mg/kg</span>
+                            </div>
+                            <span class="value" id="result_ketamine_rsi_iv">-- mg</span>
+                        </div>
+                        <div class="result-item">
+                            <div>
+                                <span class="label">Ketamine (IM):</span>
+                                <span class="item-formula">Formula: 4-5 mg/kg</span>
+                            </div>
+                            <span class="value" id="result_ketamine_rsi_im">-- mg</span>
+                        </div>
+                        <div class="result-item">
+                            <div>
+                                <span class="label">Etomidate (IV):</span>
+                                <span class="item-formula">Formula: 0.2-0.3 mg/kg (max 20 mg)</span>
+                            </div>
+                            <span class="value" id="result_etomidate_rsi_iv">-- mg</span>
+                        </div>
+                        <div class="result-item">
+                            <div>
+                                <span class="label">Propofol (IV):</span>
+                                <span class="item-formula">Formula: 2-3 mg/kg (lower doses in hemodynamically unstable patients)</span>
+                            </div>
+                            <span class="value" id="result_propofol_rsi_iv">-- mg</span>
                         </div>
                     </div>
                 </div>
