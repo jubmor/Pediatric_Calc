@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>🚑 Paediatric Major Trauma Calculator</h1>
+            <h1>🚑 Paediatric Trauma Calculator</h1>
             <p class="subtitle">ETC Reference Calculations</p>
         </header>
 
@@ -27,7 +27,7 @@
                         <input type="number" id="age_months" min="0" max="12" step="0.1" placeholder="e.g., 6 (for <1 year)">
                     </div>
                     <div class="input-field">
-                        <label for="weight_kg">Weight (kg):</label>
+                        <label for="weight_kg">Weight (Kg):</label>
                         <input type="number" id="weight_kg" min="0" step="0.1" placeholder="optional - auto-calculated">
                     </div>
                 </div>
@@ -43,7 +43,9 @@
                     <h3>Calculated Weight</h3>
                     <p class="formula-text formula-black">1–12 months (Updated APLS infant formula) = (age in months ÷ 2) + 4<br>
                     1–5 years (Best Guess formula) = (2 × age in years) + 8<br>
-                    6–12 years (Luscombe formula) = (3 × age in years) + 7</p>
+                    6–12 years (Luscombe formula) = (3 × age in years) + 7<br>
+                    &gt;12 kg: No validated age-based formula available. Default to 50 kg for medium-dose calculations.</p>
+                    <p class="formula-text formula-black"><strong>Always confirm the weight with the parent/caregiver or use a length-based method for better accuracy, and update the patient information accordingly.</strong></p>
                     <div class="result-value" id="result_weight">-- kg</div>
                 </div>
 
@@ -169,8 +171,15 @@
                 <!-- A - AIRWAY -->
                 <div class="result-box section-a">
                     <h3>A - Airway</h3>
-                    <p class="formula-text formula-black">ET = Endotracheal tube</p>
+                    <p class="formula-text formula-black">Mac = Macintosh Blade, ET = Endotracheal tube</p>
                     <div class="result-grid">
+                        <div class="result-item">
+                            <div>
+                                <span class="label">Laryngoscope Blade:</span>
+                                <span class="item-formula">Weight-based selection</span>
+                            </div>
+                            <span class="value" id="result_laryngoscope_blade">--</span>
+                        </div>
                         <div class="result-item">
                             <div>
                                 <span class="label">ET Tube Size (cuffed):</span>
@@ -230,6 +239,22 @@
                                 <span class="item-formula">Formula: 2-3 mg/kg (lower doses in hemodynamically unstable patients)</span>
                             </div>
                             <span class="value" id="result_propofol_rsi_iv">-- mg</span>
+                        </div>
+                    </div>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <div>
+                                <span class="label">Neuromuscular Block (NMB):</span>
+                                <span class="item-formula">Rocuronium: Formula: 1.2 mg/kg</span>
+                            </div>
+                            <span class="value" id="result_rocuronium_rsi">-- mg</span>
+                        </div>
+                        <div class="result-item">
+                            <div>
+                                <span class="label">Immediate reversal of NMB:</span>
+                                <span class="item-formula">Sugammadex: Formula: 16 mg/kg IV</span>
+                            </div>
+                            <span class="value" id="result_sugammadex_rsi">-- mg</span>
                         </div>
                     </div>
                 </div>

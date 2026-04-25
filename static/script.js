@@ -72,6 +72,7 @@ function displayResults(data, ageYears, ageMonths) {
     document.getElementById('result_weight').textContent = data.weight_kg + ' kg';
 
     // Airway Section
+    document.getElementById('result_laryngoscope_blade').textContent = data.airway.laryngoscope_blade;
     document.getElementById('result_et_tube_size').textContent = data.airway.et_tube_size + ' mm';
     document.getElementById('result_et_tube_cuff').textContent = data.airway.et_tube_cuff + ' mm';
     document.getElementById('result_et_tube_length').textContent = data.airway.et_tube_length + ' cm';
@@ -84,6 +85,8 @@ function displayResults(data, ageYears, ageMonths) {
     document.getElementById('result_ketamine_rsi_im').textContent = data.airway.rsi.ketamine_im_min + '-' + data.airway.rsi.ketamine_im_max + ' mg';
     document.getElementById('result_etomidate_rsi_iv').textContent = data.airway.rsi.etomidate_iv_min + '-' + data.airway.rsi.etomidate_iv_max + ' mg';
     document.getElementById('result_propofol_rsi_iv').textContent = data.airway.rsi.propofol_iv_min + '-' + data.airway.rsi.propofol_iv_max + ' mg';
+    document.getElementById('result_rocuronium_rsi').textContent = data.airway.rsi.rocuronium + ' mg';
+    document.getElementById('result_sugammadex_rsi').textContent = data.airway.rsi.sugammadex + ' mg';
 
     // Analgesia Section
     document.getElementById('result_fentanyl_nasal').textContent = data.analgesia.fentanyl_nasal + ' mcg';

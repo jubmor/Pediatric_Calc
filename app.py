@@ -21,6 +21,9 @@ class PedsCalculator:
             elif age_years <= 12:
                 # 6-12 years: Luscombe formula = (3 × age in years) + 7
                 return (3 * age_years) + 7
+            else:
+                # >12 years: fixed estimate = 50 kg
+                return 50
         return None
     
     @staticmethod
@@ -64,6 +67,28 @@ class PedsCalculator:
     def ventilated_tidal_volume(weight_kg):
         """Ventilated tidal volume: 6 ml/kg"""
         return 6 * weight_kg
+
+    @staticmethod
+    def laryngoscope_blade(weight_kg):
+        """Select laryngoscope blade based on weight."""
+        if weight_kg < 1:
+            return 'Miller 0'
+        elif weight_kg < 3:
+            return 'Miller 0/1'
+        elif weight_kg < 10:
+            return 'Miller 1'
+        elif weight_kg < 12:
+            return 'Miller 1/Mac 1'
+        elif weight_kg < 14:
+            return 'Mac 2'
+        elif weight_kg < 22:
+            return 'Mac 1/2'
+        elif weight_kg < 40:
+            return 'Mac 2'
+        elif weight_kg < 60:
+            return 'Mac 3'
+        else:
+            return 'Mac 4'
     
     # ==================== RSI ====================
     
@@ -316,6 +341,7 @@ def calculate():
         results = {
             'weight_kg': round(weight_kg, 2),
             'airway': {
+                'laryngoscope_blade': PedsCalculator.laryngoscope_blade(weight_kg),
                 'et_tube_size': round(PedsCalculator.et_tube_size(age_years or 0), 1),
                 'et_tube_cuff': round(PedsCalculator.et_tube_cuff_size(age_years or 0), 1),
                 'et_tube_length': round(PedsCalculator.et_tube_length_oral(age_years or 0), 1),
